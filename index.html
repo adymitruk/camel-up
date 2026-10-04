@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camel Up</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-row">
+            <h1>🐪 CAMEL UP</h1>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                <span class="icon">◑</span>
+            </button>
+        </div>
+
+        <!-- SETUP SCREEN -->
+        <div id="setupScreen" class="screen setup-card">
+            <p class="subtitle">Bet on the craziest camel race in Egypt!</p>
+            <div class="input-group">
+                <input type="text" id="playerNameInput" placeholder="Enter player name..." autocomplete="off">
+                <button id="addPlayerBtn" class="btn" style="width: auto;">Add</button>
+            </div>
+            <ul id="playerList" class="player-list"></ul>
+            <div class="player-count-hint" id="playerCountHint">Need 2–8 players to start</div>
+            <button id="startGameBtn" class="btn" disabled>Start Race!</button>
+            <div class="divider">or</div>
+            <button id="quickStartBtn" class="btn btn-secondary">Quick Start (2 Players)</button>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="gameScreen" class="screen hidden">
+
+            <!-- Top Bar: Round/Turn Info -->
+            <div class="game-top-bar">
+                <div class="leg-badge">Leg <span id="legNumber">1</span></div>
+                <div class="turn-indicator" id="turnIndicator">Player 1</div>
+                <div class="pyramid-count">
+                    <span class="py-icon">🟦</span>
+                    <span id="pyramidTilesLeft">5</span>
+                </div>
+            </div>
+
+            <!-- Race Track -->
+            <div class="track-container">
+                <div class="track" id="track">
+                    <!-- JS renders spaces here -->
+                </div>
+                <div class="finish-line">🏁</div>
+            </div>
+
+            <!-- Dice Remaining / Rolled -->
+            <div class="dice-area">
+                <div class="dice-label">🎲 In Pyramid:</div>
+                <div class="dice-pool" id="dicePool">
+                    <!-- JS renders dice here -->
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div id="message" class="message">Place your bets!</div>
+
+            <!-- Actions Panel -->
+            <div id="actionsPanel" class="actions-panel">
+                <!-- Action buttons rendered by JS -->
+            </div>
+
+            <!-- Player Panel (collapsible) -->
+            <div class="player-panel-header" onclick="togglePlayerPanel()">
+                <span>👥 Players</span>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="playerPanel" class="player-panel">
+                <!-- JS renders player states here -->
+            </div>
+
+            <!-- Betting Tile Stacks -->
+            <div class="betting-tiles-section">
+                <div class="section-title">🎫 Leg Betting Tiles</div>
+                <div id="bettingStacks" class="betting-stacks">
+                    <!-- JS renders stacks here -->
+                </div>
+            </div>
+
+            <!-- Overall Bet Area (during game, secret) -->
+            <div class="overall-bet-area">
+                <div class="section-title">🏆 Overall Winner/Loser Bets</div>
+                <div id="overallBets" class="overall-bets">
+                    <div class="bet-slot">
+                        <div class="bet-slot-label">Winner</div>
+                        <div id="winnerBetsList"><em>No bets yet</em></div>
+                    </div>
+                    <div class="bet-slot">
+                        <div class="bet-slot-label">Loser</div>
+                        <div id="loserBetsList"><em>No bets yet</em></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Over -->
+            <div id="gameOverPanel" class="game-over-panel hidden">
+                <h2>🏆 Race Over!</h2>
+                <div id="finalResults"></div>
+                <button id="playAgainBtn" class="btn">Play Again</button>
+                <button id="newGroupBtn" class="btn btn-secondary" style="margin-top:5px">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bet Modal -->
+    <div id="betModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="betModalTitle">Back a Camel</h3>
+            <p id="betModalDesc">Pick a camel to back for this leg:</p>
+            <div id="betModalColors" class="bet-modal-colors">
+                <!-- JS renders camel color buttons -->
+            </div>
+            <button id="betModalCancel" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Overall Bet Modal -->
+    <div id="overallModal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="overallModalTitle">🏆 Bet on Overall Winner</h3>
+            <p>Choose a camel card to place face-down:</p>
+            <div id="overallModalCards" class="bet-modal-colors">
+                <!-- JS renders available cards -->
+            </div>
+            <button id="overallModalCancel" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
