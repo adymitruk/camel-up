@@ -5,7 +5,7 @@ set -e
 
 ENV="${1:-staging}"
 WWW="/var/www/apps.dymitruk.com/$ENV/camel-up"
-SRC="$(cd "$(dirname "$0")/.." && pwd)/apps/camel-up"
+SRC="$(cd "$(dirname "$0")" && pwd)"   # this repo IS the app
 
 if [ "$ENV" != "staging" ] && [ "$ENV" != "prod" ]; then
   echo "Usage: $0 [staging|prod]"
@@ -18,9 +18,10 @@ echo "🚀 Deploying Camel Up → $ENV"
 sudo mkdir -p "$WWW"
 sudo chown ubuntu:ubuntu "$WWW"
 
-# Copy from the apps bundle (source of truth for deployment)
+# Copy repo contents into www (never a git repo there)
 rsync -a --delete \
   --exclude '.git' \
+  --exclude 'deploy.sh' \
   "$SRC/" "$WWW/"
 
 echo "✅ Deployed to https://apps.dymitruk.com/$ENV/camel-up/"
